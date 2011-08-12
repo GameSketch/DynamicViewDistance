@@ -1,122 +1,60 @@
-name: ScrapBukkit
-main: com.dinnerbone.bukkit.scrap.ScrapBukkit
-version: 1.0.0
-website: http://www.bukkit.org
-author: The Bukkit Team
+name: DynamicViewDistance
+main: net.gamesketch.viewdistance.DynamicViewDistance
+version: 0.0.1
+website: http://www.gamesketch.net
+author: Cogito
 description: >
-             Miscellaneous administrative commands for Bukkit.
-             This plugin is one of the default plugins shipped with Bukkit.
+             Set the view distance on a server-wide, per-world and per-player basis.
+             Allows setting variable view distance based on server load.
 commands:
-  clear:
-    description: Clears your own or a player's inventory.
+  setview:
+    description: Set the view distance.
     usage: |
-           /<command> [player]
-           Example: /<command> - clears your own inventory.
-           Example: /<command> Bukkit - clears Bukkit's inventory.
-  give:
-    description: Gives yourself or someone else items. Supports item IDs or names.
+           /<command> [server|world <name>|player <name>] distance
+           Example: /<command> server 7 - set the server view distance to 7.
+           Example: /<command> world hell 3 - set the "hell" world's view distance to 3.
+           Example: /<command> player admin 15 - set the "admin" player's view distance to 15.
+  resetview:
+    description: Reset the view distance to defaults.
     usage: |
-           /<command> item[:data] [amount] [player]
-           Example: /<command> 2 - gives you 1 grass.
-           Example: /<command> 2 20 - gives you 20 grass.
-           Example: /<command> 2 -1 - gives you unlimited grass.
-           Example: /<command> 2 64 Bukkit - gives a player named Bukkit 64 grass.
-           Example: /<command> 35:12 200 - gives you 200 brown wool.
-  tp:
-    description: Teleports yourself or a player to another player or specific coordinates.
-    usage: |
-           /<command> [victim] <destination>
-           Example: /<command> Dinnerbone - teleports you to the player named Dinnerbone.
-           Example: /<command> Bukkit Walrus - teleports a player named Bukkit to a player named Walrus.
-           Example: /<command> * Monster - telports every online player to a player named Monster.
-           Example: /<command> 100 200 100 - teleports you to the location 100,200,100 (X,Y,Z).
-           Example: /<command> Bukkit 100 200 100 - teleports a player named Bukkit to the location 100,200,100.
-  tphere:
-    description: Teleports someone to yourself.
-    usage: |
-           /<command> <victim>
-           Example: /<command> Dinnerbone - teleports the player named Dinnerbone to you
-           Example: /<command> * - teleports every online player to yourself
-  time:
-    description: Sets/shows the current time.
-    usage: |
-           /<command> - displays the current time (13.00)
-           /<command> 13 - sets the time to 13.00
-           /<command> day - makes it day
-           /<command> night - makes it night
-           /<command> raw - displays the current raw time
-           /<command> =24000 - sets the current raw time (48000 is two days)
-           /<command> +1000 - adds raw time (1000 is one hour)
-           /<command> -1000 - subtracts raw time
-  take:
-    description: Removes an item from your own or a player's inventory. Supports item IDs or names.
-    usage: |
-           /<command> [player] <item> [count]
-           Use count = -1 (default) to remove all instances of an item
-           Example: /<command> TNT - removes all TNT from your inventory.
-           Example: /<command> griefer TNT -1 - removes all TNT from a player named griefer's inventory.
-           Example: /<command> duplicator diamond_pickaxe 1 - removes 1 diamond pickaxe from a player named duplicator's inventory.
+           /<command> [server|world <name>|player <name>] distance
+           Example: /<command> server - reset the server view distance to 5.
+           Example: /<command> world hell - reset the "hell" world's view distance to the server's.
+           Example: /<command> player admin - reset the "admin" player's view distance to the world's.
 permissions:
-  scrapbukkit.remove:
-    description: Allows the player to remove items from anyones inventory
-    children:
-      scrapbukkit.remove.self: true
-      scrapbukkit.remove.other: true
-  scrapbukkit.remove.self:
-    description: Allows the player to remove items from their own inventory
-  scrapbukkit.remove.other:
-    description: Allows the player to remove items from other peoples inventory
-
-  scrapbukkit.time:
-    description: Allows the player to view and change the time
-    children:
-      scrapbukkit.time.view: true
-      scrapbukkit.time.change: true
-  scrapbukkit.time.view:
-    description: Allows the player to view the time
-    default: true
-  scrapbukkit.time.change:
-    description: Allows the player to change the time
-
-  scrapbukkit.tp:
-    description: Allows the player to teleport anyone to anyone else
-    children:
-      scrapbukkit.tp.here: true
-      scrapbukkit.tp.self: true
-      scrapbukkit.tp.other: true
-  scrapbukkit.tp.here:
-    description: Allows the player to teleport other players to themselvess
-  scrapbukkit.tp.self:
-    description: Allows the player to teleport themselves to another player
-  scrapbukkit.tp.other:
-    description: Allows the player to teleport anyone to another player
-
-  scrapbukkit.give:
-    children:
-      scrapbukkit.give.self: true
-      scrapbukkit.give.other: true
-    description: Allows the player to give items
-  scrapbukkit.give.self:
-    description: Allows the player to give themselves items
-  scrapbukkit.give.other:
-    description: Allows the player to give other players items
-
-  scrapbukkit.clear:
-    description: Allows the player to clear inventories
-    children:
-      scrapbukkit.clear.self: true
-      scrapbukkit.clear.other: true
-  scrapbukkit.clear.self:
-    description: Allows the player to clear their own inventory
-  scrapbukkit.clear.other:
-    description: Allows the player to clear other players inventory
-
-  scrapbukkit.*:
-    description: Gives all permissions for Scrapbukkit
+  viewdistance:
     default: op
+    description: allow full control over view distances
     children:
-      scrapbukkit.clear: true
-      scrapbukkit.remove: true
-      scrapbukkit.time: true
-      scrapbukkit.tp: true
-      scrapbukkit.give: true
+      viewdistance.set: true
+      viewdistance.reset: true
+
+  viewdistance.set:
+    description: |
+                 allow the setting of all view distances
+                 can use world.worldname and player.playername for fine grained control
+    children:
+      viewdistance.set.server: true
+      viewdistance.set.world: true
+      viewdistance.set.player: true
+  viewdistance.set.server:
+    description: allow setting of the server view distance
+  viewdistance.set.world:
+    description: allow setting of all world view distances
+  viewdistance.set.player:
+    description: allow setting of all player view distances
+
+  viewdistance.reset:
+    description: |
+                 allow the resetting of all view distances
+                 can use world.worldname and player.playername for fine grained control
+    children:
+      viewdistance.reset.server: true
+      viewdistance.reset.world: true
+      viewdistance.reset.player: true
+  viewdistance.reset.server:
+    description: allow resetting of the server view distance
+  viewdistance.reset.world:
+    description: allow resetting of all world view distances
+  viewdistance.reset.player:
+    description: allow resetting of all player view distances
