@@ -1,6 +1,6 @@
 name: DynamicViewDistance
 main: net.gamesketch.viewdistance.DynamicViewDistance
-version: 0.0.1
+version: ${version}
 website: http://www.gamesketch.net
 author: Cogito
 description: >
