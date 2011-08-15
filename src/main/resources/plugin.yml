@@ -43,6 +43,9 @@ permissions:
     description: allow setting of all world view distances
   viewdistance.set.player:
     description: allow setting of all player view distances
+  viewdistance.set.self:
+    description: allow setting of a player's own view distance
+    default: false
 
   viewdistance.reset:
     description: |
@@ -58,3 +61,6 @@ permissions:
     description: allow resetting of all world view distances
   viewdistance.reset.player:
     description: allow resetting of all player view distances
+  viewdistance.reset.self:
+    description: allow resetting of a player's own view distance
+    default: false

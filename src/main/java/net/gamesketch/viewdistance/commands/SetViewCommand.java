@@ -16,6 +16,13 @@ public class SetViewCommand implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            if (!(sender instanceof Player)) {
+                return false;
+            }
+            Player player = (Player) sender;
+            return setPlayerViewDistance(sender, args[1], player);
+        }
         if (args.length > 1) {
             if ("server".equalsIgnoreCase(args[0])) {
                 return setServerViewDistance(sender, args[1], plugin.getServer());
@@ -109,7 +116,7 @@ public class SetViewCommand implements CommandExecutor {
         if (player == null) {
             return false;
         }
-        if (!sender.hasPermission("viewdistance.set.player") && !sender.hasPermission("viewdistance.set.player." + player.getName())) {
+        if (!sender.hasPermission("viewdistance.set.player") && !sender.hasPermission("viewdistance.set.player." + player.getName()) && (!sender.hasPermission("viewdistance.set.self") && player.equals(sender))) {
             sender.sendMessage("You do not have permission to use this command.");
             return true;
         }
