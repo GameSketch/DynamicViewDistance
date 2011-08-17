@@ -21,7 +21,7 @@ public class SetViewCommand implements CommandExecutor {
                 return false;
             }
             Player player = (Player) sender;
-            return setPlayerViewDistance(sender, args[1], player);
+            return setPlayerViewDistance(sender, args[0], player);
         }
         if (args.length > 1) {
             if ("server".equalsIgnoreCase(args[0])) {
