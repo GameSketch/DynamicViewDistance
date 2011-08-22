@@ -63,24 +63,16 @@ public class SetViewCommand implements CommandExecutor {
             return true;
         }
         try {
-            return setWorldViewDistance(sender, Integer.parseInt(viewDistance), world);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean setWorldViewDistance(CommandSender sender, int viewDistance, World world) {
-        if (world == null) {
-            return false;
-        }
-        try {
-            world.setViewDistance(viewDistance);
+            if (plugin.setWorldViewDistance(world, Integer.parseInt(viewDistance))) {
+                sender.sendMessage("World \""+world.getName()+"\" view distance set to "+viewDistance);
+                return true;
+            }
+        } catch (NumberFormatException ignored) {
         } catch (IllegalArgumentException e) {
             sender.sendMessage(e.getMessage());
-            return false;
+            return true;
         }
-        sender.sendMessage("World \""+world.getName()+"\" view distance set to "+viewDistance);
-        return true;
+        return false;
     }
 
     private boolean setServerViewDistance(CommandSender sender, String viewDistance, Server server) {
@@ -92,24 +84,16 @@ public class SetViewCommand implements CommandExecutor {
             return true;
         }
         try {
-            return setServerViewDistance(sender, Integer.parseInt(viewDistance), server);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean setServerViewDistance(CommandSender sender, int viewDistance, Server server) {
-        if (server == null) {
-            return false;
-        }
-        try {
-            server.setViewDistance(viewDistance);
+            if (plugin.setServerViewDistance(Integer.parseInt(viewDistance))) {
+                sender.sendMessage("Server view distance set to "+viewDistance);
+                return true;
+            }
+        } catch (NumberFormatException ignored) {
         } catch (IllegalArgumentException e) {
             sender.sendMessage(e.getMessage());
-            return false;
+            return true;
         }
-        sender.sendMessage("Server view distance set to "+viewDistance);
-        return true;
+        return false;
     }
 
     private boolean setPlayerViewDistance(CommandSender sender, String viewDistance, Player player) {
@@ -121,23 +105,16 @@ public class SetViewCommand implements CommandExecutor {
             return true;
         }
         try {
-            return setPlayerViewDistance(sender, Integer.parseInt(viewDistance), player);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean setPlayerViewDistance(CommandSender sender, int viewDistance, Player player) {
-        if (player == null) {
-            return false;
-        }
-        try {
-            player.setViewDistance(viewDistance);
+            if (plugin.setPlayerViewDistance(player, Integer.parseInt(viewDistance))) {
+                sender.sendMessage("Player \""+player.getName()+"\" view distance set to "+viewDistance);
+                return true;
+            }
+        } catch (NumberFormatException ignored) {
         } catch (IllegalArgumentException e) {
             sender.sendMessage(e.getMessage());
-            return false;
+            return true;
         }
-        sender.sendMessage("Player \""+player.getName()+"\" view distance set to "+viewDistance);
-        return true;
+        return false;
     }
+
 }
